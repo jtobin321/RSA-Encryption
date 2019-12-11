@@ -84,6 +84,7 @@ export default class extends Component {
                                 <Form.Input fluid onChange={this.nChangeHandler} label="Choose your N:" placeholder="N = p * q where p, q are prime" />
                                 <Form.Input fluid onChange={this.eChangeHandler} label="Choose your e:" placeholder="gcd(e, (p-1) * (q-1)) = 1" /> 
                                 <Dropdown 
+                                    style={{marginTop: '22px'}}
                                     fluid
                                     selection
                                     label="Encrypt or Decrypt" 
