@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Grid, Form, Header, Segment, Button, Dropdown, Message } from 'semantic-ui-react'
 
 import './App.css'
+import { encrypt, decrypt } from './utils/utils'
+import { key } from './utils/letterMap'
 
 export default class extends Component {
   state = {
     n: "",
     e: "",
     text: "",
+    outputText: "",
     type: "",
     errors: false
   }
@@ -37,7 +40,6 @@ export default class extends Component {
   }
 
   submitHandler = () => {
-      console.log(this.state)
       if (this.state.n == "" || this.state.e == "" || this.state.type == "" || this.state.text == "") {
           this.setState({
               errors: true
@@ -47,7 +49,20 @@ export default class extends Component {
         this.setState({
             errors: false
         })
-        //other
+        if (this.state.type == "en") {
+            let cipherText = encrypt(this.state.n, this.state.e, this.state.text, key)
+            this.setState({
+                outputText: cipherText
+            })
+
+        } else if (this.state.type == "de") {
+            let plainText = decrypt(this.state.n, this.state.e, this.state.text, key)
+            this.setState({
+                outputText: plainText
+            })
+        }
+
+        
       }
       
   }
@@ -78,11 +93,15 @@ export default class extends Component {
                                 />
                             </Form.Group>
                             <Form.Group widths='equal'>
-                                <Form.Input fluid onChange={this.textChangeHandler} type={this.state.type == "en" ? 'password' : 'text'} label= "Enter text" placeholder="Enter text..." />
+                                <Form.Input fluid onChange={this.textChangeHandler} type="text" label= "Enter text" placeholder="Enter text..." />
                             </Form.Group>
                             <Form.Group widths='equal'>
                                 <Button color='teal' fluid onClick={this.submitHandler}>Submit</Button>
                             </Form.Group>
+                            <Header as='h3' textAlign='center'>Output Text</Header>
+                            <Segment raised>
+                                {this.state.outputText}
+                            </Segment>
                         </Segment>
                     </Form>
                 </Grid.Column>
