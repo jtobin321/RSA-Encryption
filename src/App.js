@@ -94,7 +94,7 @@ export default class extends Component {
                                 />
                             </Form.Group>
                             <Form.Group widths='equal'>
-                                <Form.Input fluid onChange={this.textChangeHandler} type="text" label= "Enter text" placeholder="Enter text..." />
+                                <Form.Input fluid onChange={this.textChangeHandler} type={this.state.type == "en" ? "password" : "text"} label= "Enter text" placeholder="Enter text..." />
                             </Form.Group>
                             <Form.Group widths='equal'>
                                 <Button color='teal' fluid onClick={this.submitHandler}>Submit</Button>
